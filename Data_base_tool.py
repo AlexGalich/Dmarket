@@ -6,15 +6,10 @@ class DatabaseIteraction:
     username = 'postgres'
     pwd = 'uLyKfRFAiiWeV0mFOMkB.'
     port_id = 7341
-
+    DB_URI = 'PGPASSWORD=uLyKfRFAiiWeV0mFOMkB psql -h containers-us-west-31.railway.app -U postgres -p 7341 -d railway'
 
     def connect(self):
-        conn = psycopg2.connect(
-            host= DatabaseIteraction.hostname,
-            dbname = DatabaseIteraction.database,
-            user = DatabaseIteraction.username,
-            password = DatabaseIteraction.pwd,
-            port = DatabaseIteraction.port_id)
+        conn = psycopg2.connect(DatabaseIteraction.DB_URI)
         return conn
     
     def create_dbs(self):
