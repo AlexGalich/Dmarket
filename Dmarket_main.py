@@ -3,11 +3,14 @@ from Data_base_tool import DatabaseIteraction
 from dmarket import place_target
 from dmarket import get_invetory_items, get_available_inventory, construct_dict , put_on_sale  , remove_target, update_sale_price, get_closed_offers, balance_evaluation
 import datetime
+from add_items import additems
 import time
 
 db_connection = DatabaseIteraction()
 def initialization():
     db_connection.create_dbs()
+    # add the items
+    additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
         try:

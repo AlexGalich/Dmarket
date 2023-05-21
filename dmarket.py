@@ -1,7 +1,5 @@
 import requests 
 from bs4 import BeautifulSoup
-import time 
-import statistics
 import json
 from datetime import datetime
 from urllib import parse
