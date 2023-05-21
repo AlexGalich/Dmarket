@@ -6,7 +6,7 @@ class DatabaseIteraction:
     username = 'postgres'
     pwd = 'uLyKfRFAiiWeV0mFOMkB.'
     port_id = 7341
-    DB_URI = 'PGPASSWORD=uLyKfRFAiiWeV0mFOMkB psql -h containers-us-west-31.railway.app -U postgres -p 7341 -d railway'
+    DB_URI = 'postgresql://postgres:uLyKfRFAiiWeV0mFOMkB@containers-us-west-31.railway.app:7341/railway'
 
     def connect(self):
         conn = psycopg2.connect(DatabaseIteraction.DB_URI)
