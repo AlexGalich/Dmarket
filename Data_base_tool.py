@@ -1,11 +1,11 @@
 import psycopg2
 class DatabaseIteraction:
 
-    hostname = 'localhost'
-    database = 'the_bubble_project'
+    hostname = 'containers-us-west-31.railway.app'
+    database = 'railway'
     username = 'postgres'
-    pwd = 'Lopik123.'
-    port_id = 5432
+    pwd = 'uLyKfRFAiiWeV0mFOMkB.'
+    port_id = 7341
 
 
     def connect(self):
