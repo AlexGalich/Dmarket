@@ -19,6 +19,7 @@ def additems():
 
             if dm_signal :
                 dm_list.append(item)
+                print(len(dm_list))
         except :
             continue
     n = 0 
