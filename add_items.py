@@ -14,14 +14,13 @@ def additems():
 
     dm_list = []
     for item in items[1:] :
-        try:
+        
             dm_signal = calculate_dm_signal()
 
             if dm_signal :
                 dm_list.append(item)
                 print(len(dm_list))
-        except :
-            continue
+       
     n = 0 
     for dm_item in dm_list:
         try:
