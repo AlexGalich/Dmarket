@@ -22,7 +22,7 @@ def additems():
         except :
             continue
     n = 0 
-    for dm_item in dm_list():
+    for dm_item in dm_list:
         try:
             selling_price = calculate_sale_price(dm_item)
             
