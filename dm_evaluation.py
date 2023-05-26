@@ -10,7 +10,7 @@ def request_sales_history(item_encoded):
     market_response = requests.get(f'https://api.dmarket.com/marketplace-api/v1/sales-history?Title={item_encoded}&GameID=a8db&Period=7D&Currency=USD',headers=header)
     try:
         hist = json.loads(market_response.text)
-        print( hist['SalesHistory'])
+      
         return hist['SalesHistory']
     
     except:
