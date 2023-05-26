@@ -29,6 +29,13 @@ def check_amount_criterias(item_info):
             return False
 def check_price_criteria(item_info):
     # Get sale price in cents , convert them from str to int
+    try:
+        price_list = item_info['Prices']
+        if '' in price_list:
+            return False
+    except:
+        return False
+
     item_prices = [eval(i) for i in item_info['Prices']] 
     try:
         avg_prices = sum(item_prices)/ len(item_prices)

@@ -7,15 +7,16 @@ steam_connector= Steam()
 db_connector = DatabaseIteraction()
 
 def additems():
-    with open('buff_new.csv', newline = '', encoding="utf8") as csv_file:
+    with open(r'buff_new.csv', newline = '', encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         
         items = list(csv_reader)
 
     dm_list = []
     for item in items[1:] :
+            print(item[0])
         
-            dm_signal = calculate_dm_signal(item)
+            dm_signal = calculate_dm_signal(item[0])
 
             if dm_signal :
                 dm_list.append(item)
@@ -37,7 +38,7 @@ def additems():
 
 
 
-
+additems()
 
 
 
