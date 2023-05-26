@@ -14,18 +14,25 @@ def additems():
 
     dm_list = []
     for item in items[1:] :
-        dm_signal = calculate_dm_signal()
+        try:
+            dm_signal = calculate_dm_signal()
 
-        if dm_signal :
-            dm_list.append(item)
+            if dm_signal :
+                dm_list.append(item)
+        except :
+            continue
     n = 0 
     for dm_item in dm_list():
-        selling_price = calculate_sale_price(dm_item)
-        steam_signal = steam_connector.calculate_steam_signal(selling_price, dm_item)
+        try:
+            selling_price = calculate_sale_price(dm_item)
+            
+            steam_signal = steam_connector.calculate_steam_signal(selling_price, dm_item)
 
-        if steam_signal:
-            n+= 1 
-            db_connector.AddItemsInOperation(str(n), dm_item)
+            if steam_signal:
+
+                n+= 1 
+                db_connector.AddItemsInOperation(str(n), dm_item)
+        except: continue
 
 
 

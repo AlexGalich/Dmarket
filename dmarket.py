@@ -232,12 +232,6 @@ def balance_evaluation(item_price, item_quanity):
     
 
 
-print(get_balance())
-
-#print(update_sale_price('43009b5e-e200-556e-8ca7-823cd8ff4628','17b2d128-0c88-4536-af81-995a9321b8d8', 0.24))
-
-#for i in get_selling_items():
-    #update_current_selling_items(i)
 
 #print('===================================================')
 #print(put_on_sale('b7ecd156-8eee-5427-9d5d-67671aa426cd',0.87))

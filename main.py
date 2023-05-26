@@ -12,8 +12,8 @@ def main():
         time.sleep(900)
         n += 1
         sale_items()
-        update_selling_items()
         sold_items()
+        update_selling_items()
         if n % 144 == 0 :
             update_offers()
 

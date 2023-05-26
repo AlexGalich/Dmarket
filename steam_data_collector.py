@@ -10,9 +10,9 @@ import statistics
 import time
 def make_requst(link):
     headers= {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-          'Cookie' : 'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; sessionid=53882ba9b6bc2d0f9f47a708; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1682371084%7D; strInventoryLastContext=730_2; app_impressions=730@2_100300_100500__100506|1167630@2_100300_100500__100503|1203440@2_100300_100500__100503|710920@2_100300_100500__100503|361420@2_100300_100500__100503|1353521@2_100300_100500__100503|739630@2_100300_100500__100503; steamCurrencyId=18; steamCountry=CA%7C70d35d336d11d327cba8335beb405c38; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NDk2MzcyMywgIm5iZiI6IDE2NzYyMzYyMDgsICJpYXQiOiAxNjg0ODc2MjA4LCAianRpIjogIjBEMTdfMjI4REE4MjlfMjVDMUUiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.zFuYlY0qIRVwbjAkfY22SmzdWpx2cu0Od4HKcVNlEpjmN_hzUkxbaz1vJfC_nI5iNOmBZRDz_-GRMCbBu1H0Cw; _gid=GA1.2.589251300.1684876210; rgTopicView_General_4009259_1=%7B%221484359403776777965%22%3A1684948497%7D'
-    }
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+          'Cookie' : 'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; strInventoryLastContext=730_2; steamCurrencyId=18; steamCountry=DE%7C91574356ac672fa45362c208d41c60f2; sessionid=d801ed976c7c6cca015f3ac7; steamDidLoginRefresh=1685136347; _gid=GA1.2.972757476.1685136348; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NTIyMzUyNywgIm5iZiI6IDE2NzY0OTYzNTMsICJpYXQiOiAxNjg1MTM2MzUzLCAianRpIjogIjBEMjFfMjI5NkUyM0ZfQzU1OEMiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.5vFn5OJMc7And5AX9ldVgs5oebXrWnoR0boS95N2waziLYsZfzRe5IIHo0RgNtWSBSJyu0UpJE4ulmqC8ArlAA; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1685136353%7D',
+}       
     request = requests.get(link, headers=headers)
 
     return request
@@ -33,6 +33,7 @@ class Steam():
     
     # finds id of the product
     def get_id(self, link):
+        
         html = requests.get(link).text
         soup = BeautifulSoup(html, 'lxml')
         id = None
@@ -52,9 +53,16 @@ class Steam():
 
     def get_selling_price(self, item_name):
        
-        data_link = self.construct_data_link(item_name)
+        just_link = self.consturct_link_new(item_name)
+        print(just_link)
+        create_id = self.get_id(just_link)
+        print(create_id)
+        data_link = self.construct_data_link(create_id)
+        
+    
         time.sleep(3)
         requested_obj = make_requst(data_link).json()
+        print(requested_obj)
     
        
        
@@ -73,7 +81,7 @@ class Steam():
         name_encoded = parse.quote(item_name)
         url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
         print(url)
-        return_obj = make_requst(url).status_code
+        return_obj = make_requst(url,).json()['prices']
         print(return_obj)
         return_obj = return_obj[::-1]
         print(type(return_obj))
@@ -120,10 +128,10 @@ class Steam():
         
 
     def calculate_steam_signal(self, selling_price, item_name):
-        item_url = self.consturct_link_new(item_name)
+       
        
         
-        traget_price , offer_price = self.get_selling_price(item_url)
+        traget_price , offer_price = self.get_selling_price(item_name)
         time.sleep(10)
         
 
@@ -150,7 +158,7 @@ class Steam():
 steam_class  = Steam()
 
 
-data_ext = steam_class.calculate_steam_signal(0.3,'Danger Zone Case')
+data_ext = steam_class.calculate_steam_signal(0.3,'AK-47 | Case Hardened (Battle-Scarred)')
 
 
 #for i in prices_list:

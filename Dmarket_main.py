@@ -125,6 +125,7 @@ def  update_selling_items() :
     current_time= round(time.time())
     items_update = db_connection.GetItemsThreeDays(current_time, 3)        
     if len(items_update) == 0:
+        print("there are no items to update")
         return
     else:
         for item in items_update:
