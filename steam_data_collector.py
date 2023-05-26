@@ -54,15 +54,15 @@ class Steam():
     def get_selling_price(self, item_name):
        
         just_link = self.consturct_link_new(item_name)
-        print(just_link)
+
         create_id = self.get_id(just_link)
-        print(create_id)
+     
         data_link = self.construct_data_link(create_id)
         
     
         time.sleep(3)
         requested_obj = make_requst(data_link).json()
-        print(requested_obj)
+       
     
        
        
@@ -80,11 +80,11 @@ class Steam():
 
         name_encoded = parse.quote(item_name)
         url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
-        print(url)
+    
         return_obj = make_requst(url,).json()['prices']
-        print(return_obj)
+      
         return_obj = return_obj[::-1]
-        print(type(return_obj))
+        
         return return_obj
 
     def get_avg_month(self, sales_list):
@@ -151,18 +151,6 @@ class Steam():
         
 
 
-    
-    
-    
-
-steam_class  = Steam()
-
-
-data_ext = steam_class.calculate_steam_signal(0.3,'AK-47 | Case Hardened (Battle-Scarred)')
-
-
-#for i in prices_list:
-    #print(i.strip())
 
 
 

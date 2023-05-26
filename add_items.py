@@ -7,7 +7,7 @@ steam_connector= Steam()
 db_connector = DatabaseIteraction()
 
 def additems():
-    with open(r'Dmarket_traiding_bot\buff_new.csv', newline = '', encoding="utf8") as csv_file:
+    with open('buff_new.csv', newline = '', encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         
         items = list(csv_reader)
@@ -32,6 +32,7 @@ def additems():
 
                 n+= 1 
                 db_connector.AddItemsInOperation(str(n), dm_item)
+                print(n)
         except: continue
 
 
