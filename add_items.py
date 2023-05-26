@@ -14,7 +14,7 @@ def additems():
 
     dm_list = []
     for item in items[1:] :
-            print(item[0])
+            
         
             dm_signal = calculate_dm_signal(item[0])
 
