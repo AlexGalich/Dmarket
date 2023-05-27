@@ -37,7 +37,7 @@ class Steam():
             'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
         }
         html_main = requests.get(link, headers=header)
-        print(html_main.status_code)
+        print("id",html_main.status_code)
         html = html_main.text
         soup = BeautifulSoup(html, 'lxml')
         id = None
@@ -97,7 +97,7 @@ class Steam():
         name_encoded = parse.quote(item_name)
         url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
     
-        return_obj = make_requst(url,).json()['prices']
+        return_obj = make_requst(url).status_code      #json()['prices']
       
         return_obj = return_obj[::-1]
         
