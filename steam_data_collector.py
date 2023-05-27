@@ -97,7 +97,11 @@ class Steam():
         name_encoded = parse.quote(item_name)
         url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
     
-        return_obj = make_requst(url).status_code      #json()['prices']
+        
+        request_main = make_requst(url)
+        print("request_main",request_main.status_code)
+        return_obj = request_main.json()['prices']
+        print(return_obj)     #json()['prices']
       
         return_obj = return_obj[::-1]
         
