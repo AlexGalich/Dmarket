@@ -3,6 +3,7 @@ import csv
 from dm_evaluation import calculate_dm_signal
 from steam_data_collector import Steam
 from dmarket_info import calculate_sale_price
+import time
 steam_connector= Steam()
 db_connector = DatabaseIteraction()
 
@@ -13,7 +14,9 @@ def additems():
         items = list(csv_reader)
 
     n = 0 
+    it_count =0 
     for item in items[1:] :
+            
             item = item[0]
         
             dm_signal = calculate_dm_signal(item)
@@ -23,6 +26,10 @@ def additems():
                 selling_price = calculate_sale_price(item)
 
                 try:
+                    if it_count % 7 == 0 :
+                        time.sleep(30)
+                         
+                    it_count += 1
                     steam_signal = steam_connector.calculate_steam_signal(selling_price, item)
                 except:
                      print('Steam evaluation failed')
