@@ -54,14 +54,14 @@ class Steam():
     def get_selling_price(self, item_name):
        
         just_link = self.consturct_link_new(item_name)
-        time.sleep(3)
+        time.sleep(10)
 
         create_id = self.get_id(just_link)
      
         data_link = self.construct_data_link(create_id)
         
     
-        time.sleep(8)
+        time.sleep(10)
         print("the data link is", data_link)
         return_d = make_requst(data_link)
         print("status", return_d.status_code)
@@ -142,7 +142,7 @@ class Steam():
     def calculate_steam_signal(self, selling_price, item_name):
        
        
-        time.sleep(5)
+        time.sleep(7)
         traget_price , offer_price = self.get_selling_price(item_name)
         time.sleep(10)
         
