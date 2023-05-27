@@ -12,7 +12,7 @@ def additems():
         
         items = list(csv_reader)
 
-    
+    n = 0 
     for item in items[1:] :
             item = item[0]
         
@@ -25,7 +25,7 @@ def additems():
                 steam_signal = steam_connector.calculate_steam_signal(selling_price, item)
 
                 if steam_signal:
-
+                    n += 1
                     db_connector.AddItemsInOperation(str(n), item)
                     print('steam', item)
                 
