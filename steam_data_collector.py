@@ -54,13 +54,14 @@ class Steam():
     def get_selling_price(self, item_name):
        
         just_link = self.consturct_link_new(item_name)
+        time.sleep(3)
 
         create_id = self.get_id(just_link)
      
         data_link = self.construct_data_link(create_id)
         
     
-        time.sleep(3)
+        time.sleep(8)
         requested_obj = make_requst(data_link).json()
        
     
@@ -136,7 +137,7 @@ class Steam():
         
 
 
-        if selling_price <= (offer_price - (offer_price * 0.07)):
+        if selling_price <= (offer_price - (traget_price * 0.07)):
             
             data_ext = self.get_past_month_sales(item_name)
             mean_list  = self.get_avg_month(data_ext)

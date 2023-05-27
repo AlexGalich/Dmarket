@@ -21,8 +21,12 @@ def additems():
             if dm_signal :
                 print('dm', item)
                 selling_price = calculate_sale_price(item)
-            
-                steam_signal = steam_connector.calculate_steam_signal(selling_price, item)
+
+                try:
+                    steam_signal = steam_connector.calculate_steam_signal(selling_price, item)
+                except:
+                     print('Steam evaluation failed')
+                     continue
 
                 if steam_signal:
                     n += 1
