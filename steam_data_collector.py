@@ -33,9 +33,12 @@ class Steam():
     
     # finds id of the product
     def get_id(self, link):
-        time.sleep(10)
-        proxy = get_proxy()   
-        html = requests.get(link,proxies=proxy).text
+        header = {
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+        }
+        html_main = requests.get(link, headers=header)
+        print(html_main.status_code)
+        html = html_main.text
         soup = BeautifulSoup(html, 'lxml')
         id = None
         for script in soup.find_all('script'):
