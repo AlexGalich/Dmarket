@@ -136,7 +136,7 @@ class Steam():
         
 
 
-        if selling_price <= (offer_price - (offer_price * 0.05)):
+        if selling_price <= (offer_price - (offer_price * 0.07)):
             
             data_ext = self.get_past_month_sales(item_name)
             mean_list  = self.get_avg_month(data_ext)
