@@ -10,10 +10,13 @@ import statistics
 import time
 from proxy import get_proxy
 def make_requst(link):
+    header = {
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+        }
     time.sleep(10)
     proxy = get_proxy()   
     print(proxy)
-    request = requests.get(link, proxies=proxy)
+    request = requests.get(link, proxies=proxy, headers=header)
 
     return request
 
