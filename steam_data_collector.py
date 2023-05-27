@@ -66,9 +66,11 @@ class Steam():
         return_d = make_requst(data_link)
         print("status", return_d.status_code)
         if return_d.status_code == 429:
-            print('The program is sleeping 30 secs')
+            print('The program is sleeping 90 secs')
             time.sleep(90)
-       
+            return_d = make_requst(data_link)
+            print("New code status", return_d.status_code)
+        
         requested_obj = return_d.json()
 
         print("the return obj", requested_obj)
