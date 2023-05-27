@@ -100,6 +100,7 @@ class Steam():
 
         name_encoded = parse.quote(item_name)
         url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
+        print("three month url", url)
     
         
         request_main = make_requst(url)
