@@ -8,13 +8,11 @@ from dollar_price import get_dollar_price
 import numpy as np
 import statistics
 import time
+from proxy import get_proxy
 def make_requst(link):
-    time.sleep(5)
-    headers= {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
-          'Cookie' : 'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; strInventoryLastContext=730_2; steamCurrencyId=18; steamCountry=DE%7C91574356ac672fa45362c208d41c60f2; sessionid=d801ed976c7c6cca015f3ac7; steamDidLoginRefresh=1685136347; _gid=GA1.2.972757476.1685136348; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NTIyMzUyNywgIm5iZiI6IDE2NzY0OTYzNTMsICJpYXQiOiAxNjg1MTM2MzUzLCAianRpIjogIjBEMjFfMjI5NkUyM0ZfQzU1OEMiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.5vFn5OJMc7And5AX9ldVgs5oebXrWnoR0boS95N2waziLYsZfzRe5IIHo0RgNtWSBSJyu0UpJE4ulmqC8ArlAA; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1685136353%7D',
-}       
-    request = requests.get(link, headers=headers)
+    time.sleep(3)
+    proxy = get_proxy()   
+    request = requests.get(link, proxies=proxy)
 
     return request
 
@@ -34,8 +32,9 @@ class Steam():
     
     # finds id of the product
     def get_id(self, link):
-        time.sleep(4)
-        html = requests.get(link).text
+        time.sleep(3)
+        proxy = get_proxy()   
+        html = requests.get(link,proxies=proxy).text
         soup = BeautifulSoup(html, 'lxml')
         id = None
         for script in soup.find_all('script'):
