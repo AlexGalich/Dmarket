@@ -24,7 +24,7 @@ def additems():
        
     n = 0 
     for dm_item in dm_list:
-        try:
+    
             selling_price = calculate_sale_price(dm_item)
             
             steam_signal = steam_connector.calculate_steam_signal(selling_price, dm_item)
@@ -34,7 +34,7 @@ def additems():
                 n+= 1 
                 db_connector.AddItemsInOperation(str(n), dm_item)
                 print(n)
-        except: continue
+        
 
 
 

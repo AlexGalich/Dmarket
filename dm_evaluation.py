@@ -22,7 +22,7 @@ def check_amount_criterias(item_info):
         return False 
     
     else:
-        higher_15 = all(i >= 15 for i in item_info['Items'])
+        higher_15 = all(i >= 10 for i in item_info['Items'])
         if higher_15 :
             return True 
         else :
