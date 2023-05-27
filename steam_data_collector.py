@@ -63,7 +63,10 @@ class Steam():
     
         time.sleep(8)
         print("the data link is", data_link)
-        requested_obj = make_requst(data_link).json()
+        return_d = make_requst(data_link)
+        print("status", return_d.status_code)
+        requested_obj = return_d.json()
+
         print("the return obj", requested_obj)
        
     
