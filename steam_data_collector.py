@@ -67,7 +67,7 @@ class Steam():
         print("status", return_d.status_code)
         if return_d.status_code == 429:
             print('The program is sleeping 30 secs')
-            time.sleep(30)
+            time.sleep(90)
        
         requested_obj = return_d.json()
 
