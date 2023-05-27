@@ -62,7 +62,9 @@ class Steam():
         
     
         time.sleep(8)
+        print("the data link is", data_link)
         requested_obj = make_requst(data_link).json()
+        print("the return obj", requested_obj)
        
     
        
@@ -131,7 +133,7 @@ class Steam():
     def calculate_steam_signal(self, selling_price, item_name):
        
        
-        
+        time.sleep(5)
         traget_price , offer_price = self.get_selling_price(item_name)
         time.sleep(10)
         
