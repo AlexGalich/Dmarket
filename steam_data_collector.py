@@ -10,8 +10,9 @@ import statistics
 import time
 from proxy import get_proxy
 def make_requst(link):
-    time.sleep(3)
+    time.sleep(10)
     proxy = get_proxy()   
+    print(proxy)
     request = requests.get(link, proxies=proxy)
 
     return request
@@ -32,7 +33,7 @@ class Steam():
     
     # finds id of the product
     def get_id(self, link):
-        time.sleep(3)
+        time.sleep(10)
         proxy = get_proxy()   
         html = requests.get(link,proxies=proxy).text
         soup = BeautifulSoup(html, 'lxml')
