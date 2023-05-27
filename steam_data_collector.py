@@ -10,11 +10,14 @@ import statistics
 import time
 from proxy import get_proxy
 def make_requst(link):
-    
+    header = {
+        'Cookie':'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; strInventoryLastContext=730_2; steamCurrencyId=18; sessionid=d801ed976c7c6cca015f3ac7; _gid=GA1.2.972757476.1685136348; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1685136353%7D; steamCountry=DE%7C91574356ac672fa45362c208d41c60f2; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NTMxMjMxNywgIm5iZiI6IDE2NzY1ODQxNDgsICJpYXQiOiAxNjg1MjI0MTQ4LCAianRpIjogIjBEMjFfMjI5NkUyN0FfOTgyN0EiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.X-RJ2s8gG86qKUipogTnncFvRoMppeYGIw6jJseUeGchsPsEnVm0xMwRMA4Bn8mXWZURJSZzjnVzjhj0MgmPBA; tsTradeOffersLastRead=1684498525',
+        'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+    }
     time.sleep(10)
     proxy = get_proxy()   
     print(proxy)
-    request = requests.get(link, proxies=proxy)
+    request = requests.get(link, proxies=proxy, headers= header)
 
     return request
 
