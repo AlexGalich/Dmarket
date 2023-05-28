@@ -9,6 +9,7 @@ import numpy as np
 import statistics
 import time
 from proxy import get_proxy
+import datetime
 def make_requst(link):
     header = {
         'Cookie':'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; strInventoryLastContext=730_2; steamCurrencyId=18; sessionid=d801ed976c7c6cca015f3ac7; _gid=GA1.2.972757476.1685136348; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1685136353%7D; steamCountry=DE%7C91574356ac672fa45362c208d41c60f2; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NTMxMjMxNywgIm5iZiI6IDE2NzY1ODQxNDgsICJpYXQiOiAxNjg1MjI0MTQ4LCAianRpIjogIjBEMjFfMjI5NkUyN0FfOTgyN0EiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.X-RJ2s8gG86qKUipogTnncFvRoMppeYGIw6jJseUeGchsPsEnVm0xMwRMA4Bn8mXWZURJSZzjnVzjhj0MgmPBA; tsTradeOffersLastRead=1684498525',
@@ -112,29 +113,25 @@ class Steam():
         
         return return_obj
 
-    def get_avg_month(self, sales_list):
+    def get_avg_month(self, item_name):
+        name_encoded = parse.quote(item_name)
         dates_sum = {}
-        for item in sales_list:
-            date_parts = item[0].split()
-
-            date_only = " ".join(date_parts[:3])
-            dates_sum[date_only] = dates_sum.get(date_only,0) +  float(item[1])
-            if len(dates_sum) >= 15:
-                break
-        
         dates_count = {}
-        for item in sales_list:
-            date_parts = item[0].split()
-            date_only = " ".join(date_parts[:3])
-            dates_count[date_only] =  dates_count.get(date_only, 0) +1 
-            if len(dates_count) >= 15:
-                break
-
+        return_obj = requests.get(f'https://www.csgostocks.de/api/prices/price/{name_encoded}?name={name_encoded}').json()['data'][-720:]
+        for i in return_obj[::-1]:
+            date_only = str(datetime.datetime.fromtimestamp(i[0])).split(' ')[0]
+        
+            dates_sum[date_only] = dates_sum.get(date_only,0) +  float(i[1])
+            dates_count[date_only] = dates_count.get(date_only, 0) + 1
+            if len(dates_sum) >= 15:
+                        break
         date_list = []
+
         for key in dates_sum:
-            day_avg_hrn = dates_sum[key]/ dates_count[key]
-            day_avg_usd = round((day_avg_hrn/ Steam.dollar),2)
-            date_list.append(day_avg_usd)
+        
+            day_avg  = round(dates_sum[key]/ dates_count[key],2)
+            date_list.append(day_avg)
+       
 
         
         return  date_list[::-1]
@@ -163,8 +160,8 @@ class Steam():
 
         if selling_price <= (offer_price - (traget_price * 0.07)):
             
-            data_ext = self.get_past_month_sales(item_name)
-            mean_list  = self.get_avg_month(data_ext)
+            
+            mean_list  = self.get_avg_month(item_name)
             slope_mean_ratio,std_mean_ration = self.calculate_grpath_sign(mean_list)
 
             if slope_mean_ratio >= -0.008 :
@@ -174,6 +171,7 @@ class Steam():
         return False 
 
         
+
 
 
 
