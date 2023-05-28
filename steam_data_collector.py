@@ -10,108 +10,22 @@ import statistics
 import time
 from proxy import get_proxy
 import datetime
-def make_requst(link):
-    header = {
-        'Cookie':'ActListPageSize=100; steamMachineAuth76561198314485108=7EE8F422D3417741FB4C9A392C77510C02444FB2; browserid=2549629317044310014; _ga=GA1.2.2100762397.1669573121; Steam_Language=english; cookieSettings=%7B%22version%22%3A1%2C%22preference_state%22%3A1%2C%22content_customization%22%3Anull%2C%22valve_analytics%22%3Anull%2C%22third_party_analytics%22%3Anull%2C%22third_party_content%22%3Anull%2C%22utm_enabled%22%3Atrue%7D; extproviders_730=steamanalyst; recentlyVisitedAppHubs=730; totalproviders_730=steamanalyst; timezoneOffset=7200,0; strInventoryLastContext=730_2; steamCurrencyId=18; sessionid=d801ed976c7c6cca015f3ac7; _gid=GA1.2.972757476.1685136348; webTradeEligibility=%7B%22allowed%22%3A1%2C%22allowed_at_time%22%3A0%2C%22steamguard_required_days%22%3A15%2C%22new_device_cooldown_days%22%3A0%2C%22time_checked%22%3A1685136353%7D; steamCountry=DE%7C91574356ac672fa45362c208d41c60f2; steamLoginSecure=76561198314485108%7C%7CeyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEQyNl8yMjU3NzVCNF9FMDUyNCIsICJzdWIiOiAiNzY1NjExOTgzMTQ0ODUxMDgiLCAiYXVkIjogWyAid2ViIiBdLCAiZXhwIjogMTY4NTMxMjMxNywgIm5iZiI6IDE2NzY1ODQxNDgsICJpYXQiOiAxNjg1MjI0MTQ4LCAianRpIjogIjBEMjFfMjI5NkUyN0FfOTgyN0EiLCAib2F0IjogMTY4MDg5NTkwMywgInJ0X2V4cCI6IDE2OTg3MDcwNzEsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICI2Mi4yMTQuMS4yNTAiLCAiaXBfY29uZmlybWVyIjogIjYyLjIxNC4xLjI1MCIgfQ.X-RJ2s8gG86qKUipogTnncFvRoMppeYGIw6jJseUeGchsPsEnVm0xMwRMA4Bn8mXWZURJSZzjnVzjhj0MgmPBA; tsTradeOffersLastRead=1684498525',
-        'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
-    }
-    time.sleep(10)
-    proxy = get_proxy()   
-    print(proxy)
-    request = requests.get(link, proxies=proxy, headers= header)
-
-    return request
-
 
 class Steam():
     dollar = get_dollar_price()
-    main_link = "https://steamcommunity.com/market/listings/730/"
     
-
-
-    def consturct_link_new(self,item_name):
-        new_string = parse.quote(item_name)
-
-        final_link = Steam.main_link + new_string
-
-        return final_link
-    
-    # finds id of the product
-    def get_id(self, link):
-        header = {
-            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
-        }
-        html_main = requests.get(link, headers=header)
-        print("id",html_main.status_code)
-        html = html_main.text
-        soup = BeautifulSoup(html, 'lxml')
-        id = None
-        for script in soup.find_all('script'):
-            id_regex = re.search('Market_LoadOrderSpread\(([ 0-9]+)\)', script.text)
-            if id_regex:
-                id = id_regex.groups()[0].strip()
-                break
-        return id
-    
-    def construct_data_link(self, id):
-        data_link = f'https://steamcommunity.com/market/itemordershistogram?country=UA&language=english&currency=18&item_nameid={id}&two_factor=0'
-        return data_link 
     
 
     # a function to extract a list of first 10 sellers offers
 
     def get_selling_price(self, item_name):
-       
-        just_link = self.consturct_link_new(item_name)
-    
-
-        create_id = self.get_id(just_link)
-     
-        data_link = self.construct_data_link(create_id)
-        
-    
-       
-        print("the data link is", data_link)
-        return_d = make_requst(data_link)
-        print("status", return_d.status_code)
-        if return_d.status_code == 429:
-            print('The program is sleeping 90 secs')
-            
-            return_d = make_requst(data_link)
-            print("New code status", return_d.status_code)
-        
-        requested_obj = return_d.json()
-
-        print("the return obj", requested_obj)
-       
-    
-       
-       
-
-        # Convertn price from cents to full numbers
-        buy_price_hrn = float(requested_obj['highest_buy_order']) / 100
-        sell_price_hrn = float(requested_obj['lowest_sell_order']) / 100
-
-
-        buy_price_usd = round(buy_price_hrn/ Steam.dollar,2)
-        sell_price_usd = round(sell_price_hrn / Steam.dollar, 2)
-        return buy_price_usd, sell_price_usd
-
-    def get_past_month_sales(self,item_name ):
-
         name_encoded = parse.quote(item_name)
-        url = f"https://steamcommunity.com/market/pricehistory/?appid=730&market_hash_name={name_encoded}"
-        print("three month url", url)
-    
-        
-        request_main = make_requst(url)
-        print("request_main",request_main.status_code)
-        return_obj = request_main.json()['prices']
-        print(return_obj)     #json()['prices']
-      
-        return_obj = return_obj[::-1]
-        
-        return return_obj
+        try:
+            current_sale_price = requests.get(f'https://www.csgostocks.de/api/prices/price/keyfigures/{name_encoded}').json()['steam']['current_price']
+        except: 
+            print("There is no selling price for", item_name)
+            current_sale_price = None
+        return current_sale_price
 
     def get_avg_month(self, item_name):
         name_encoded = parse.quote(item_name)
@@ -123,7 +37,7 @@ class Steam():
         
             dates_sum[date_only] = dates_sum.get(date_only,0) +  float(i[1])
             dates_count[date_only] = dates_count.get(date_only, 0) + 1
-            if len(dates_sum) >= 15:
+            if len(dates_sum) >= 10:
                         break
         date_list = []
 
@@ -153,12 +67,12 @@ class Steam():
        
        
        
-        traget_price , offer_price = self.get_selling_price(item_name)
-       
-        
+        offer_price = self.get_selling_price(item_name)
+        if offer_price == None:
+            return False
 
 
-        if selling_price <= (offer_price - (traget_price * 0.07)):
+        if selling_price <= (offer_price - (offer_price * 0.1)):
             
             
             mean_list  = self.get_avg_month(item_name)
@@ -171,6 +85,7 @@ class Steam():
         return False 
 
         
+
 
 
 
