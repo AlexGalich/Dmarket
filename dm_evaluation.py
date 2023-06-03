@@ -36,6 +36,8 @@ def check_price_criteria(item_info):
 
 
     item_prices = [eval(i) for i in item_info['Prices']] 
+    if len(item_prices) == 0:
+        return False
    
     avg_prices = sum(item_prices)/ len(item_prices)
        
