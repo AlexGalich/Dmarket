@@ -294,7 +294,7 @@ def calculate_target_update(lowes_target, current_target, sale_price):
     expected_difference_prec = (sale_price_without_fee - current_target) / sale_price
     target_difference  = round((current_target - lowes_target) / current_target,2)
 
-
+ 
     if target_difference > 0.30 :
         new_target = round(current_target - (0.10 * current_target),2)
         return True, new_target

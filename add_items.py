@@ -19,7 +19,7 @@ def additems():
     for item in items[1:] :
             
             item = item[0]
-        
+            print(item)
             dm_signal = calculate_dm_signal(item)
 
             if dm_signal :
