@@ -44,7 +44,7 @@ def check_price_criteria(item_info):
    
     avg_prices = sum(item_prices)/ len(item_prices)
        
-    if 500 <= avg_prices and avg_prices >= 25:
+    if avg_prices < 500 and avg_prices >= 25:
             return True 
     return False 
 
@@ -65,7 +65,6 @@ def calculate_dm_signal(item_name):
     if amount_criteria and price_criteria :
         return True 
     return  False
-
 
 
 
