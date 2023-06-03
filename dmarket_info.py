@@ -307,6 +307,6 @@ def calculate_target_update(lowes_target, current_target, sale_price):
     else: 
         return False ,current_target
 
-claculate_sale_price_new('Stockholm 2021 Legends Sticker Capsule')      
+ 
 
 #print(order_evaluation('Sticker | Eternal Fire (Glitter) | Antwerp 2022'))
