@@ -3,7 +3,8 @@ import csv
 from dm_evaluation import calculate_dm_signal
 from steam_data_collector import Steam
 from dmarket_info import calculate_sale_price
-import time
+from dmarket_info import claculate_price_approval
+
 steam_connector= Steam()
 db_connector = DatabaseIteraction()
 
@@ -25,17 +26,14 @@ def additems():
                 print('dm', item)
                 selling_price = calculate_sale_price(item)
 
-               
-                if it_count % 7 == 0 :
-                        time.sleep(30)
                          
                 it_count += 1
-                steam_signal = steam_connector.calculate_steam_signal(selling_price, item)
+                price_approval = claculate_price_approval(item)
            
              
                     
 
-                if steam_signal:
+                if price_approval:
                     n += 1
                     db_connector.AddItemsInOperation(str(n), item)
                     print('steam', item)

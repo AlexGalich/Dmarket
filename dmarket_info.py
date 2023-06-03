@@ -5,6 +5,7 @@ import statistics
 import json
 from datetime import datetime
 from urllib import parse
+from dmarket import get_sales_history
 
 
 items_on_sale = {}
@@ -109,94 +110,8 @@ def extract_sales_information(sales_info):
     return None 
 
 tick = time.time()
-def calculate_sale_price(item_name):
-    sale_price = None
-    encoded_item = encode_item(item_name)
-
-    
-    item_info = get_item_market_info(encoded_item)
- 
-    offers_information = extract_item_information(item_info, False)
-    orders_information = extract_item_information(item_info, True)
-
-    sales_history = extract_sales_history(encoded_item)
-    sales_information = extract_sales_information(sales_history)
 
 
-    
-
-    # Calculate minimum offered price -7%
-    offer_price_7 = round((offers_information['Prices'][0] * 0.93),2)
-    offer_price_10 = round((offers_information['Prices'][0]* 1.1 ),2)
-
-
-
-    # Calculate the number of items sold , the price of which is more then current selling price or is more then -5%
-    count = 0 
-    for item in sales_information['last_10_sales']:
-      
-        
-        if  offer_price_7 >= float(item) <= offer_price_10 :
-           
-            count += 1
-    
- 
-    if count < 5:
-       
-
-        # calculate mean of items sold only buy offers
-        offers_sold =  [item for item in sales_information['last_10_sales'] if item not in orders_information['Prices']]
-        
-        try:
-            offers_sold_mean = sum(offers_sold) / len(offers_sold)
-            sale_price = round(((offers_sold_mean + offers_information['Prices'][0]) / 2),2)
-            
-        except:
-            sale_price = round(((sales_information['mean_price'] + offers_information['Prices'][0]) / 2),2)
-
-
-        if sale_price > offers_information['Prices'][0]:
-            return round(offers_information['Prices'][0] * 0.98, 2)
-       
-        return sale_price
-    
-
-    
-    
-    else:
-       
-        if (offers_information['Prices'][0] * 0.32)<= (offers_information['Prices'][1] - offers_information['Prices'][0]) >= (0.20 * offers_information['Prices'][0]) and offers_information['Amount'][0] <= 4   :
-
-            # calculate if second offer is selling actively 
-            second_off_95 = offers_information['Prices'][1] * 0.95
-            second_off_110 = offers_information['Prices'][1] * 1.05
-
-            sold_second_offer = [item for item in sales_information['last_10_sales'] if second_off_95 <= item <= second_off_110]
-            if len(sold_second_offer)  >= 4:
-                return round(offers_information['Prices'][1] * 0.95,2)
-            
-            else:
-                return round(offers_information['Prices'][1] * 0.87, 2)
-
-
-
-        if (offers_information['Prices'][1] - offers_information['Prices'][0]) >= (0.06 * offers_information['Prices'][0]) and offers_information['Amount'][0] <= 2:
-            
-
-            return round(offers_information['Prices'][0] * 1.03,2) 
-        
-        elif (offers_information['Prices'][1] - offers_information['Prices'][0]) >=0.02 and offers_information['Amount'][0] <= 2:
-        
-            
-            return offers_information['Prices'][0] + 0.01
-        else :
-            
-
-            return offers_information['Prices'][0] - 0.01
-    
-
-            
-    
 def calculate_order_price(item_name):
     encoded_item = encode_item(item_name)
 
@@ -233,6 +148,108 @@ def calculate_order_price(item_name):
         else :
             
             return suggested_price 
+        
+def calculate_sale_price(item_name):
+    encoded_item = encode_item(item_name)
+
+    
+    item_info = get_item_market_info(encoded_item)
+ 
+    offers_information = extract_item_information(item_info, False)
+   
+
+    sales_history = extract_sales_history(encoded_item)
+    sales_information = extract_sales_information(sales_history)
+
+    expected_target_price = calculate_order_price(item_name) 
+
+    lowest_offer = offers_information['Prices'][0]
+    # Calcualte lowest offer with fee 
+    lowest_offer_fee = round(lowest_offer * 0.97,2)
+ 
+   
+
+    # Check if difference between lowest offer with fee & expected target >= 8%
+    difference = round((lowest_offer_fee - expected_target_price) / expected_target_price ,2)
+
+    if difference >= 0.08 :
+     
+
+        # Check how many items greater than lowest selling price - 2 precent have been sold
+        lowest_offer_98 = lowest_offer * 0.98
+
+        if sum(i >= lowest_offer_98 for i in sales_information['last_10_sales']) > 5:
+            
+            return lowest_offer_98
+        
+        else: 
+            sales_averages = get_sales_history(item_name)
+            # Calculate last day average price with fee 
+            last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
+            difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
+
+            if difference >= 0.08 :
+                if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
+                    return last_day_avg_fee
+    return expected_target_price * 1.1
+    
+    
+
+        
+def claculate_price_approval(item_name):
+    
+    encoded_item = encode_item(item_name)
+
+    
+    item_info = get_item_market_info(encoded_item)
+ 
+    offers_information = extract_item_information(item_info, False)
+    orders_information = extract_item_information(item_info, True)
+
+    sales_history = extract_sales_history(encoded_item)
+    sales_information = extract_sales_information(sales_history)
+
+    expected_target_price = calculate_order_price(item_name) 
+
+    lowest_offer = offers_information['Prices'][0]
+    # Calcualte lowest offer with fee 
+    lowest_offer_fee = round(lowest_offer * 0.97,2)
+ 
+   
+
+    # Check if difference between lowest offer with fee & expected target >= 8%
+    difference = round((lowest_offer_fee - expected_target_price) / expected_target_price ,2)
+
+    if difference >= 0.08 :
+     
+
+        # Check how many items greater than lowest selling price - 2 precent have been sold
+        lowest_offer_98 = lowest_offer * 0.98
+
+        if sum(i >= lowest_offer_98 for i in sales_information['last_10_sales']) > 5:
+            
+            return True
+        
+        else: 
+            sales_averages = get_sales_history(item_name)
+            # Calculate last day average price with fee 
+            last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
+            difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
+
+            if difference >= 0.08 :
+                if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
+                    return True
+    return False
+
+            
+
+
+
+
+
+
+
+
 
 def get_general_item_info(item_name):
     encoded_item = encode_item(item_name)
@@ -290,6 +307,6 @@ def calculate_target_update(lowes_target, current_target, sale_price):
     else: 
         return False ,current_target
 
+claculate_sale_price_new('Stockholm 2021 Legends Sticker Capsule')      
 
-            
 #print(order_evaluation('Sticker | Eternal Fire (Glitter) | Antwerp 2022'))
