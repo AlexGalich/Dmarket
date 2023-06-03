@@ -30,6 +30,9 @@ def check_amount_criterias(item_info):
 def check_price_criteria(item_info):
     # Get sale price in cents , convert them from str to int
     
+    if item_info['Prices'] == None:
+        return False 
+    
     price_list = item_info['Prices']
     if '' in price_list:
         return False
@@ -41,7 +44,7 @@ def check_price_criteria(item_info):
    
     avg_prices = sum(item_prices)/ len(item_prices)
        
-    if 500 <= avg_prices >= 25:
+    if 500 <= avg_prices and avg_prices >= 25:
             return True 
     return False 
 
