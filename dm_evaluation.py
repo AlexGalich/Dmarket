@@ -30,7 +30,7 @@ def check_amount_criterias(item_info):
 def check_price_criteria(item_info):
     # Get sale price in cents , convert them from str to int
     
-    if item_info['Prices'] == None:
+    if item_info == None:
         return False 
     
     price_list = item_info['Prices']
