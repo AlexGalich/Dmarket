@@ -6,10 +6,10 @@ import json
 from datetime import datetime
 from urllib import parse
 from dmarket import get_sales_history
-
+from steam_data_collector import Steam
 
 items_on_sale = {}
-
+steam_conntector = Steam()
 # change url to prod
 rootApiUrl = "https://api.dmarket.com"
 
@@ -172,7 +172,7 @@ def calculate_sale_price(item_name):
     # Check if difference between lowest offer with fee & expected target >= 8%
     difference = round((lowest_offer_fee - expected_target_price) / expected_target_price ,2)
 
-    if difference >= 0.08 :
+    if difference >= 0.07 :
      
 
         # Check how many items greater than lowest selling price - 2 precent have been sold
@@ -182,6 +182,17 @@ def calculate_sale_price(item_name):
             
             return lowest_offer_98
         
+
+        steam_order_price  = steam_conntector.get_order_price(item_name)
+        if type(steam_order_price) == float:
+
+            if steam_order_price * 1.03 < lowest_offer_98:
+                return lowest_offer_98 
+
+
+            difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
+            if difference_steam > 0.07:
+                return steam_order_price
         else: 
             sales_averages = get_sales_history(item_name)
             # Calculate last day average price with fee
@@ -189,7 +200,7 @@ def calculate_sale_price(item_name):
             last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
             difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
 
-            if difference >= 0.08 :
+            if difference >= 0.07:
                 if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
                     return last_avg
     return expected_target_price * 1.1
@@ -221,7 +232,7 @@ def claculate_price_approval(item_name):
     # Check if difference between lowest offer with fee & expected target >= 8%
     difference = round((lowest_offer_fee - expected_target_price) / expected_target_price ,2)
 
-    if difference >= 0.08 :
+    if difference >= 0.07 :
      
 
         # Check how many items greater than lowest selling price - 2 precent have been sold
@@ -231,13 +242,25 @@ def claculate_price_approval(item_name):
             
             return True
         
-        else: 
+        
+        steam_order_price  = steam_conntector.get_order_price(item_name)
+        if type(steam_order_price) == float:
+
+            if steam_order_price * 1.03 < lowest_offer_98:
+                return True 
+
+
+            difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
+            if difference_steam > 0.07:
+                return True
+            
+        else:
             sales_averages = get_sales_history(item_name)
             # Calculate last day average price with fee 
             last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
             difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
 
-            if difference >= 0.08 :
+            if difference >= 0.07 :
                 if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
                     return True
     return False

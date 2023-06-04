@@ -14,6 +14,37 @@ import datetime
 class Steam():
     dollar = get_dollar_price()
     
+
+        # finds id of the product
+    def get_id(self,s):
+        id = None
+        for script in s.find_all('script'):
+            id_regex = re.search('Market_LoadOrderSpread\(([ 0-9]+)\)', script.text)
+            if id_regex:
+                id = id_regex.groups()[0].strip()
+                break
+        return id
+
+    def get_order_price(self, item_name):
+        name_encoded = parse.quote(item_name)
+        name_url = f"https://steamcommunity.com/market/listings/730/{name_encoded}"
+        html = requests.get(name_url).text
+        soup = BeautifulSoup(html, 'lxml')
+        id = self.get_id(soup)
+
+        if id:
+            id_url = f"https://steamcommunity.com/market/itemordershistogram?country=US&language=english&currency=1&item_nameid={id}&two_factor=0"
+            html = requests.get(id_url).json()
+            soup = BeautifulSoup(html['buy_order_summary'], 'lxml')
+
+            not_format = soup.select_one('span:last-child').text
+            formated_price = float(not_format[1:])
+            return formated_price
+
+        else:
+            print("Could not get ID")
+            exit()
+
     
 
     # a function to extract a list of first 10 sellers offers
@@ -85,6 +116,7 @@ class Steam():
         return False 
 
         
+
 
 
 
