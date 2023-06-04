@@ -13,13 +13,12 @@ def initialization():
     additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
-        try:
             value, item_info = order_evaluation(item[1])
             print(value[0])
             if value[0] == True:
                 quantity = '5'
-                print(balance_evaluation(value[1], int(quantity)))
-                if balance_evaluation(value[1], int(quantity))  == True:
+                print(balance_evaluation("this is",value[1], int(quantity)))
+                    if value[0] == True:
                     # returns the information after the item target was placed
                     placing_return = place_target(item[1],quantity , value[1])
                 
