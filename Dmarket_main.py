@@ -18,7 +18,7 @@ def initialization():
             if value[0] == True:
                 quantity = '5'
                 print(balance_evaluation("this is",value[1], int(quantity)))
-                    if value[0] == True:
+                if value[0] == True:
                     # returns the information after the item target was placed
                     placing_return = place_target(item[1],quantity , value[1])
                 
@@ -39,8 +39,7 @@ def initialization():
 
                         # Add value to targets history
                         db_connection.AddTargetHist(target_id, name_id, target_price, quantity, offer_price,current_time)
-        except:
-            continue   
+       
     
     
 def sale_items():
