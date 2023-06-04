@@ -22,7 +22,8 @@ def check_amount_criterias(item_info):
         return False 
     
     else:
-        higher_15 = all(i >= 7 for i in item_info['Items'])
+        higher_15 = all(i >= 7 for i in item_info['Items'][:-1])
+      
         if higher_15 :
             return True 
         else :
@@ -43,8 +44,10 @@ def check_price_criteria(item_info):
         return False
    
     avg_prices = sum(item_prices)/ len(item_prices)
+   
        
     if avg_prices < 500 and avg_prices >= 25:
+         
             return True 
     return False 
 
@@ -60,7 +63,7 @@ def calculate_dm_signal(item_name):
     item_infos = request_sales_history(encoded_item)
     amount_criteria = check_amount_criterias(item_infos)
     price_criteria = check_price_criteria(item_infos)
-    
+    print(amount_criteria, price_criteria)
 
     if amount_criteria and price_criteria :
         return True 
@@ -68,4 +71,6 @@ def calculate_dm_signal(item_name):
 
 
 
+
+print(calculate_dm_signal('Falchion Case'))
 

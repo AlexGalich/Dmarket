@@ -16,11 +16,13 @@ def additems():
 
     n = 0 
     it_count =0 
+    print(len(items))
     for item in items[1:] :
             
             item = item[0]
             
             dm_signal = calculate_dm_signal(item)
+            print(item, dm_signal)
 
             if dm_signal :
                 print('dm', item)
