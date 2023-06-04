@@ -17,7 +17,7 @@ def initialization():
             print(value[0])
             if value[0] == True:
                 quantity = '5'
-                print(balance_evaluation("this is",value[1], int(quantity)))
+            
                 if value[0] == True:
                     # returns the information after the item target was placed
                     placing_return = place_target(item[1],quantity , value[1])
