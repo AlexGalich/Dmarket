@@ -184,13 +184,14 @@ def calculate_sale_price(item_name):
         
         else: 
             sales_averages = get_sales_history(item_name)
-            # Calculate last day average price with fee 
+            # Calculate last day average price with fee
+            last_avg=  int(sales_averages['Prices'][0]) / 100
             last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
             difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
 
             if difference >= 0.08 :
                 if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
-                    return last_day_avg_fee
+                    return last_avg
     return expected_target_price * 1.1
     
     
@@ -275,14 +276,10 @@ def order_evaluation(item_name, order_price = None):
         order_price = order_price
 
     sale_price = round(calculate_sale_price(item_name),2)
-    sale_price_fee = round(sale_price * 0.97,2)
     
-    price_diff = sale_price_fee - order_price
+    approval = claculate_price_approval(item_name)
 
-    # Calculate 6% from the order price
-    order_price_6 = order_price * 0.06
-
-    if price_diff >= 0.04 and price_diff >= order_price_6:
+    if approval:
         return (True , order_price, sale_price) , item_info
     else: 
         return (False , order_price, sale_price), item_info
