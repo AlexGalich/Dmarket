@@ -61,7 +61,7 @@ def calculate_dm_signal(item_name):
 
 
     encoded_item = encode_item(item_name)
-    time.sleep(2)
+    time.sleep(1)
     item_infos = request_sales_history(encoded_item)
     amount_criteria = check_amount_criterias(item_infos)
     price_criteria = check_price_criteria(item_infos)

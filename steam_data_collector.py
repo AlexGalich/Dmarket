@@ -26,6 +26,7 @@ class Steam():
         return id
 
     def get_order_price(self, item_name):
+        time.sleep(2)
         name_encoded = parse.quote(item_name)
         name_url = f"https://steamcommunity.com/market/listings/730/{name_encoded}"
         html = requests.get(name_url).text

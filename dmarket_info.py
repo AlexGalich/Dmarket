@@ -255,7 +255,14 @@ def claculate_price_approval(item_name):
                 return True
             
         else:
-            sales_averages = get_sales_history(item_name)
+            try:
+                sales_averages = get_sales_history(item_name)
+            except:
+                time.sleep(15)
+                sales_averages = get_sales_history(item_name)
+                if type(sales_averages) is not float:
+                    return False
+
             # Calculate last day average price with fee 
             last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
             difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
