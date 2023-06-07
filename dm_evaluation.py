@@ -47,7 +47,8 @@ def check_price_criteria(item_info):
    
     avg_prices = sum(item_prices)/ len(item_prices)
    
-       
+        
+        
     if avg_prices < 500 and avg_prices >= 25:
          
             return True 
