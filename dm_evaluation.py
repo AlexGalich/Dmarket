@@ -65,7 +65,7 @@ def calculate_dm_signal(item_name):
     item_infos = request_sales_history(encoded_item)
     amount_criteria = check_amount_criterias(item_infos)
     price_criteria = check_price_criteria(item_infos)
-    print(amount_criteria, price_criteria)
+    
 
     if amount_criteria and price_criteria :
         return True 

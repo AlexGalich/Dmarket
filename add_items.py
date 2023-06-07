@@ -26,7 +26,7 @@ def additems():
 
     n = 0 
     it_count =0 
-    print(len(items))
+   
     for item in items[1:] :
             it_count+= 1
             item = item[0]
@@ -36,7 +36,7 @@ def additems():
             
 
             if dm_signal :
-                print('dm', item)
+                
 
                 n += 1
                 db_connector.AddItemsInOperation(str(n), item)

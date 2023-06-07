@@ -26,16 +26,30 @@ class Steam():
         return id
 
     def get_order_price(self, item_name):
-        time.sleep(2)
+        time.sleep(7)
         name_encoded = parse.quote(item_name)
         name_url = f"https://steamcommunity.com/market/listings/730/{name_encoded}"
         html = requests.get(name_url).text
+        time_increment = 30
+        while html == None:
+            time.sleep(time_increment)
+            html = requests.get(name_url).text
+            time_increment + 15
+
         soup = BeautifulSoup(html, 'lxml')
         id = self.get_id(soup)
 
         if id:
             id_url = f"https://steamcommunity.com/market/itemordershistogram?country=US&language=english&currency=1&item_nameid={id}&two_factor=0"
+            time.sleep(10)
             html = requests.get(id_url).json()
+            time_increment = 30
+
+            while html == None:
+                time.sleep(time_increment)
+                html = requests.get(id_url).json()
+                time_increment + 15
+
             soup = BeautifulSoup(html['buy_order_summary'], 'lxml')
 
             not_format = soup.select_one('span:last-child').text
