@@ -10,7 +10,8 @@ db_connection = DatabaseIteraction()
 def initialization():
     db_connection.create_dbs()
     # add the items
-    additems()
+    if len(db_connection.GetItemsInOperation()) == 0:
+        additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
             value, item_info = order_evaluation(item[1])
@@ -97,13 +98,13 @@ def sale_items():
             value, item_info = order_evaluation(item_name)
             update_target_price= value[1]
           
-            
+            quantity = 5
             eval_value  = order_evaluation(item_name, update_target_price)[0][0]
             print("evaluation value is ", eval_value)
             if eval_value == True :
                 if balance_evaluation(update_target_price, int(quantity)) == True:
                     # Create a new target and save to the databese
-                    quantity = 5
+                
                     placing_return  = place_target(item_name, quantity, update_target_price)
                     current_time= round(time.time())
                     

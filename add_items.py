@@ -19,7 +19,7 @@ def additems():
         return
 
         
-    with open(r'buff_new.csv', newline = '', encoding="utf8") as csv_file:
+    with open(r'buff.csv',encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         
         items = list(csv_reader)
@@ -27,9 +27,9 @@ def additems():
     n = 0 
     it_count =0 
    
-    for item in items[1:] :
+    for item in items[0] :
             it_count+= 1
-            item = item[0]
+            
             if it_count % 10  == 0:
                 time.sleep(5)
             dm_signal = calculate_dm_signal(item)

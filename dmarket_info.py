@@ -182,7 +182,7 @@ def calculate_sale_price(item_name):
             
             return lowest_offer_98
         
-
+        
         steam_order_price  = steam_conntector.get_order_price(item_name)
         if type(steam_order_price) == float:
 
@@ -221,7 +221,10 @@ def claculate_price_approval(item_name):
     sales_history = extract_sales_history(encoded_item)
     sales_information = extract_sales_information(sales_history)
 
-    expected_target_price = calculate_order_price(item_name) 
+    
+    expected_target_price = calculate_order_price(item_name)
+    
+
 
     lowest_offer = offers_information['Prices'][0]
     # Calcualte lowest offer with fee 
