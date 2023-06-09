@@ -13,7 +13,7 @@ steam_conntector = Steam()
 # change url to prod
 rootApiUrl = "https://api.dmarket.com"
 
-# Create a function to encode item to a link
+# Create a function to encode item to a link  
 def encode_item(item_name):
     new_string = parse.quote(item_name)
 
