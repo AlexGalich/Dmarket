@@ -455,8 +455,7 @@ class DatabaseIteraction:
 
 
 
-connect = DatabaseIteraction()
-print(connect.GetItemsOfferID('hahdhahd'))
+
 
 
 
