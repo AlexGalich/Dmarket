@@ -439,13 +439,13 @@ class DatabaseIteraction:
         return items
 
 # Sale history
-    def AddHistorySale(self,offer_id, item_id,name_id, target_id, offer_price, buy_time):
+    def AddHistorySale(self,offer_id, item_id,name_id, target_id, offer_price, buy_time, sale_time):
         conn = self.connect()
         cur = conn.cursor()
 
-        add_record_script = '''Insert into sold_items values(%s,%s,%s,%s,%s,%s)'''
+        add_record_script = '''Insert into sold_items values(%s,%s,%s,%s,%s,%s,%s)'''
         
-        add_values = (offer_id, item_id,name_id, target_id, offer_price, buy_time,)
+        add_values = (offer_id, item_id,name_id, target_id, offer_price, buy_time,sale_time)
         
         cur.execute(add_record_script,(add_values))
         conn.commit()
@@ -455,63 +455,8 @@ class DatabaseIteraction:
 
 
 
+connect = DatabaseIteraction()
+print(connect.GetItemsOfferID('hahdhahd'))
 
 
 
-
-#connection.AddOrder('Sticker | Web Stuck (Holo)',1,2 ,0, 12,1.1, 0.4, 1.35)
-#print(connection.GetOrders())
-#connection.UpdateOrderPrice('Sticker | Web Stuck (Holo)', 10)
-#connection.DeleteOrder('Sticker | Web Stuck (Holo)')
-#connection.UpdateOrderAmount('Sticker | Web Stuck (Holo)', 10)
-#values = (connection.GetItemsInOperation())
-
-"Sticker | Web Stuck (Holo)"
-"Sticker | G2 (Holo) | 2020 RMR"
-"Sticker | Eternal Fire (Glitter) | Antwerp 2022"
-"Sticker | Natus Vincere (Glitter) | Antwerp 2022"
-"Sticker | Copenhagen Flames (Glitter) | Antwerp 2022"
-"Sticker | Team Liquid (Glitter) | Antwerp 2022"
-"Sticker | Liquid (Holo) | 2020 RMR"
-"Sticker | FURIA (Holo) | 2020 RMR"
-"Sticker | Virtus.pro (Holo) | 2020 RMR"
-"Sticker | Ninjas in Pyjamas (Glitter) | Antwerp 2022"
-"CS20 Case"
-"Dreams & Nightmares Case"
-"Sticker | FaZe (Holo) | 2020 RMR"
-"Stockholm 2021 Champions Autograph Capsule"
-"Sticker | Fnatic (Holo) | 2020 RMR"
-"Sticker | s1mple (Holo) | Stockholm 2021"
-"Sticker | PGL (Glitter) | Antwerp 2022"
-"Clutch Case"
-"Antwerp 2022 Challengers Sticker Capsule"
-"Sticker | TYLOO (Holo) | 2020 RMR"
-"Sticker | Tyloo | Stockholm 2021"
-"Sticker | Virtus.Pro | Stockholm 2021"
-"2020 RMR Contenders"
-"Antwerp 2022 Legends Sticker Capsule"
-"Rio 2022 Contenders Sticker Capsule"
-"Sticker | kennyS | Berlin 2019"
-"Sticker | Eternal Fire | Antwerp 2022"
-"Glock-18 | Off World (Factory New)"
-"Spectrum 2 Case"
-"Antwerp 2022 Contenders Sticker Capsule"
-"Recoil Case"
-"Fracture Case"
-"Danger Zone Case"
-"Rio 2022 Challengers Sticker Capsule"
-"Prisma 2 Case"
-"Horizon Case"
-"Shadow Case"
-"Falchion Case"
-"Antwerp 2022 Contenders Autograph Capsule"
-"Sticker | Natus Vincere (Foil) | 2020 RMR"
-"Name Tag"
-"Sticker | electroNic (Holo) | Stockholm 2021"
-"Sticker | Natus Vincere (Holo) | 2020 RMR"
-"Sticker | b1t (Holo) | Stockholm 2021"
-"Sticker | Astralis (Holo) | 2020 RMR"
-"Sticker | BIG (Glitter) | Antwerp 2022"
-"Sticker | North (Holo) | 2020 RMR"
-"Sticker | Cloud9 | Antwerp 2022"
-"Sticker | Natus Vincere | Antwerp 2022"
