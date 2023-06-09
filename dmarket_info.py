@@ -114,7 +114,7 @@ tick = time.time()
 
 def calculate_order_price(item_name):
     encoded_item = encode_item(item_name)
-
+    time.sleep(1)
     
     item_info = get_item_market_info(encoded_item)
     offers_information = extract_item_information(item_info, False)
@@ -122,7 +122,7 @@ def calculate_order_price(item_name):
 
     sales_history = extract_sales_history(encoded_item)
     sales_information = extract_sales_information(sales_history)
-
+    
     possible_orders = [price for price in orders_information['Prices'] if offers_information['Prices'][0] > price]
 
     
