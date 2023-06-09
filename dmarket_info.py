@@ -71,7 +71,7 @@ def extract_sales_history(encoded_item):
 def extract_sales_information(sales_info):
     if sales_info != None:
         return_obj = {'total_count': len(sales_info)}
-        print(return_obj)
+
         Date = []
         Price = []
         last_record = None
@@ -180,7 +180,7 @@ def calculate_sale_price(item_name):
 
         if sum(i >= lowest_offer_98 for i in sales_information['last_10_sales']) > 5:
             
-            return lowest_offer_98
+            return round(lowest_offer_98,2)
         
         
         # steam_order_price  = steam_conntector.get_order_price(item_name)
@@ -193,7 +193,7 @@ def calculate_sale_price(item_name):
         #     difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
         #     if difference_steam > 0.07:
         #         return steam_order_price
-        
+     
         else: 
             sales_averages = get_sales_history(item_name)
             # Calculate last day average price with fee
@@ -203,8 +203,8 @@ def calculate_sale_price(item_name):
 
             if difference >= 0.07:
                 if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
-                    return last_avg
-    return expected_target_price * 1.1
+                    return round(last_avg,2)
+    return round((expected_target_price * 1.1),2)
     
     
 

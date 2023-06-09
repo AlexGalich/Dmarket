@@ -47,7 +47,7 @@ def sale_items():
     full_invetory = get_invetory_items()
     available_inventory = get_available_inventory(full_invetory)
     items_dictionary = construct_dict(available_inventory)
-    
+    print("dict", items_dictionary)
     for item_name in items_dictionary:
         # Check if the item is currently selling 
         item_id = db_connection.GetItemId(item_name)
