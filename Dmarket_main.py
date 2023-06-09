@@ -14,7 +14,11 @@ def initialization():
         additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
-            value, item_info = order_evaluation(item[1])
+            try:
+                value, item_info = order_evaluation(item[1])
+            except:
+                print('This shit went wrong', item , value)
+                continue
             print(value[0])
             if value[0] == True:
                 quantity = '5'
@@ -50,6 +54,7 @@ def sale_items():
     print("dict", items_dictionary)
     for item_name in items_dictionary:
         # Check if the item is currently selling 
+        print("name",item_name)
         item_id = db_connection.GetItemId(item_name)
         current_price = db_connection.GetItemCurrentSellingPrice(item_id)
 
