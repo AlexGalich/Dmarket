@@ -183,16 +183,17 @@ def calculate_sale_price(item_name):
             return lowest_offer_98
         
         
-        steam_order_price  = steam_conntector.get_order_price(item_name)
-        if type(steam_order_price) == float:
+        # steam_order_price  = steam_conntector.get_order_price(item_name)
+        # if type(steam_order_price) == float:
 
-            if steam_order_price * 1.03 < lowest_offer_98:
-                return lowest_offer_98 
+        #     if steam_order_price * 1.03 < lowest_offer_98:
+        #         return lowest_offer_98 
 
 
-            difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
-            if difference_steam > 0.07:
-                return steam_order_price
+        #     difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
+        #     if difference_steam > 0.07:
+        #         return steam_order_price
+        
         else: 
             sales_averages = get_sales_history(item_name)
             # Calculate last day average price with fee
@@ -246,16 +247,16 @@ def claculate_price_approval(item_name):
             return True
         
         
-        steam_order_price  = steam_conntector.get_order_price(item_name)
-        if type(steam_order_price) == float:
+        # steam_order_price  = steam_conntector.get_order_price(item_name)
+        # if type(steam_order_price) == float:
 
-            if steam_order_price * 1.03 < lowest_offer_98:
-                return True 
+        #     if steam_order_price * 1.03 < lowest_offer_98:
+        #         return True 
 
 
-            difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
-            if difference_steam > 0.07:
-                return True
+        #     difference_steam = round((steam_order_price - expected_target_price) / expected_target_price ,2)
+        #     if difference_steam > 0.07:
+        #         return True
             
         else:
             try:

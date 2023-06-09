@@ -5,6 +5,8 @@ import time
 
 def main():
     initialization()
+    print("all targets are placed")
+    
     
     n = 0 
     while True :
