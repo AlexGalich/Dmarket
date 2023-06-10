@@ -197,7 +197,8 @@ def calculate_sale_price(item_name):
      
         else: 
             sales_averages = get_sales_history(item_name)
-            last_2_avg=  sum(int(sales_averages['Prices'][:2])) / 100 / 2
+            last_2_int = [int(i) for i in sales_averages['Prices'][:2]]
+            last_2_avg=  sum(last_2_int) / 100 / 2
             if last_2_avg < lowest_offer:
 
                 
@@ -274,8 +275,8 @@ def claculate_price_approval(item_name):
                 if type(sales_averages) is not float:
                     return False
               
-              
-            last_2_avg=  sum(int(sales_averages['Prices'][:2])) / 100 / 2
+            last_2_int = [int(i) for i in sales_averages['Prices'][:2]]
+            last_2_avg=  sum(last_2_int) / 100 / 2
             if last_2_avg < lowest_offer:
 
                 sales_averages = get_sales_history(item_name)
