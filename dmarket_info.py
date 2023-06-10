@@ -165,20 +165,21 @@ def calculate_sale_price(item_name):
 
     lowest_offer = offers_information['Prices'][0]
     # Calcualte lowest offer with fee 
-    lowest_offer_fee = round(lowest_offer * 0.97,2)
+    lowest_offer_fee = round((lowest_offer  - 0.02)* 0.97,2)
  
    
 
     # Check if difference between lowest offer with fee & expected target >= 8%
     difference = round((lowest_offer_fee - expected_target_price) / expected_target_price ,2)
+    difference_in_real_numbers= lowest_offer_fee - expected_target_price
 
-    if difference >= 0.07 :
+    if difference >= 0.07 or difference_in_real_numbers >= 0.10 :
      
 
         # Check how many items greater than lowest selling price - 2 precent have been sold
-        lowest_offer_98 = lowest_offer * 0.98
+        lowest_offer_98 = lowest_offer - 0.02
 
-        if sum(i >= lowest_offer_98 for i in sales_information['last_10_sales']) > 5:
+        if sum(i >= lowest_offer_98 for i in sales_information['last_10_sales']) >= 5:
             
             return round(lowest_offer_98,2)
         
@@ -195,16 +196,20 @@ def calculate_sale_price(item_name):
         #         return steam_order_price
      
         else: 
-            sales_averages = get_sales_history(item_name)
-            # Calculate last day average price with fee
-            last_avg=  int(sales_averages['Prices'][0]) / 100
-            last_day_avg_fee = (int(sales_averages['Prices'][0]) / 100) * 0.97
-            difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
+            last_2_avg=  sum(int(sales_averages['Prices'][:2])) / 100 / 2
+            if last_2_avg < lowest_offer:
 
-            if difference >= 0.07:
-                if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
-                    return round(last_avg,2)
-    return round((expected_target_price * 1.1),2)
+                sales_averages = get_sales_history(item_name)
+                # Calculate last day average price with fee
+                
+                last_day_avg_fee = last_2_avg * 0.98
+                difference = round((last_day_avg_fee - expected_target_price) / expected_target_price ,2)
+                difference_in_real_numbers= last_day_avg_fee - expected_target_price
+                if difference >= 0.07 or difference_in_real_numbers >= 0.1:
+                    if sum(i >= last_day_avg_fee for i in sales_information['last_10_sales']) > 5:
+                        return round(last_2_avg,2)
+                    
+    return round((expected_target_price * 1.05),2)
     
     
 
