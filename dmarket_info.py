@@ -122,8 +122,13 @@ def calculate_order_price(item_name):
 
     sales_history = extract_sales_history(encoded_item)
     sales_information = extract_sales_information(sales_history)
-    
-    possible_orders = [price for price in orders_information['Prices'] if offers_information['Prices'][0] > price]
+    try:
+        possible_orders = [price for price in orders_information['Prices'] if offers_information['Prices'][0] > price]
+    except:
+        order_price = round(orders_information['Prices'][-1] * 0.95,2)
+        
+        return  order_price
+
 
     
 
@@ -354,4 +359,3 @@ def calculate_target_update(lowes_target, current_target, sale_price):
 
  
 
-#print(order_evaluation('Sticker | Eternal Fire (Glitter) | Antwerp 2022'))
