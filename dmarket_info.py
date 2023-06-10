@@ -196,10 +196,11 @@ def calculate_sale_price(item_name):
         #         return steam_order_price
      
         else: 
+            sales_averages = get_sales_history(item_name)
             last_2_avg=  sum(int(sales_averages['Prices'][:2])) / 100 / 2
             if last_2_avg < lowest_offer:
 
-                sales_averages = get_sales_history(item_name)
+                
                 # Calculate last day average price with fee
                 
                 last_day_avg_fee = last_2_avg * 0.97
