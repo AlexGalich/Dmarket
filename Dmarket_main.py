@@ -14,9 +14,12 @@ def initialization():
         additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
-            
-            value = order_evaluation(item[1])
-            print(value)
+            try:
+                value = order_evaluation(item[1])
+                print(value)
+            except: 
+                print("shit gone" , value)
+                continue
             
            
             
