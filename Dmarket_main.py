@@ -14,11 +14,11 @@ def initialization():
         additems()
     items_in_operation  = db_connection.GetItemsInOperation()
     for item in items_in_operation:
-            try:
-                value, item_info = order_evaluation(item[1])
-            except:
-                print('This shit went wrong', item , value)
-                continue
+            
+            value = order_evaluation(item[1])
+            
+            print('This shit went wrong', item , value)
+            
             print(value[0])
             if value[0] == True:
                 quantity = '5'
@@ -100,7 +100,7 @@ def sale_items():
 
             db_connection.DeleteTarget(item_id)
             
-            value, item_info = order_evaluation(item_name)
+            value = order_evaluation(item_name)
             update_target_price= value[1]
           
             quantity = 5
@@ -202,7 +202,7 @@ def update_offers():
     not_used_items = db_connection.GetNotUsedItems()   
     for item in not_used_items:
         
-        value, item_info = order_evaluation(item[1])
+        value = order_evaluation(item[1])
         
         if value[0] == True:
             quantity = '5'

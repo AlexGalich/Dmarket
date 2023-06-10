@@ -325,9 +325,9 @@ def order_evaluation(item_name, order_price = None):
     approval = claculate_price_approval(item_name)
 
     if approval:
-        return (True , order_price, sale_price) , item_info
+        return (True , order_price, sale_price)
     else: 
-        return (False , order_price, sale_price), item_info
+        return (False , order_price, sale_price)
     
 
 def calculate_target_update(lowes_target, current_target, sale_price):
