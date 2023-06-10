@@ -273,7 +273,8 @@ def claculate_price_approval(item_name):
                 sales_averages = get_sales_history(item_name)
                 if type(sales_averages) is not float:
                     return False
-            
+              
+              
             last_2_avg=  sum(int(sales_averages['Prices'][:2])) / 100 / 2
             if last_2_avg < lowest_offer:
 
