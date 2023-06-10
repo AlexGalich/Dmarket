@@ -108,7 +108,7 @@ def sale_items():
             update_target_price= value[1]
           
             quantity = 5
-            eval_value  = order_evaluation(item_name, update_target_price)[0][0]
+            eval_value  = order_evaluation(item_name, update_target_price)[0]
             print("evaluation value is ", eval_value)
             if eval_value == True :
                 if balance_evaluation(update_target_price, int(quantity)) == True:
