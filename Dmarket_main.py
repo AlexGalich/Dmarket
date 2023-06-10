@@ -16,8 +16,9 @@ def initialization():
     for item in items_in_operation:
             
             value = order_evaluation(item[1])
+            print(value)
             
-            print('This shit went wrong', item , value)
+           
             
             print(value[0])
             if value[0] == True:
