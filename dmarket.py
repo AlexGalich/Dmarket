@@ -9,7 +9,6 @@ from furl import furl
 
 
 
-
 # change url to prod
 rootApiUrl = "https://api.dmarket.com"
 
@@ -78,9 +77,9 @@ def get_invetory_items():
     url_path ='/marketplace-api/v1/user-inventory?GameID=a8db&BasicFilters.InMarket=true'
     header = generate_headers(method, url_path)
     market_response = requests.get(API_URL + url_path ,headers=header)
-    print(market_response.status_code)
+   
     inventory = json.loads(market_response.text)["Items"]
-    print("items", inventory)
+    
 
 
     return inventory

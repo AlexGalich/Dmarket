@@ -114,7 +114,7 @@ tick = time.time()
 
 def calculate_order_price(item_name):
     encoded_item = encode_item(item_name)
-    time.sleep(1)
+    
     
     item_info = get_item_market_info(encoded_item)
     offers_information = extract_item_information(item_info, False)
