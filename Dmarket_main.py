@@ -206,6 +206,7 @@ def update_offers():
     not_used_items = db_connection.GetNotUsedItems()   
     for item in not_used_items:
         
+        
         value = order_evaluation(item[1])
         
         if value[0] == True:
