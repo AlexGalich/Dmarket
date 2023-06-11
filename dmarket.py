@@ -65,12 +65,12 @@ def get_balance():
     url = API_URL + url_path
     market_response = requests.get(url,headers=header)
     try:
-        balance = json.loads(market_response.text)
+        balance = json.loads(market_response.text)['usd']
     except:
         return None
     return balance
 
-
+print(get_balance())
 
 def get_invetory_items():
     method = 'GET'
@@ -83,7 +83,7 @@ def get_invetory_items():
 
 
     return inventory
-print(get_invetory_items())
+
 def get_available_inventory(items):
 
     return_items_list = []
